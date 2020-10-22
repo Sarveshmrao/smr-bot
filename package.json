@@ -1,0 +1,23 @@
+{
+  "name": "techcrawler-bot",
+  "version": "0.0.1",
+  "description": "A Discord Bot for TechCrawler Community",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "tech",
+    "crawler",
+    "techcrawler",
+    "community",
+    "techcrawler",
+    "community"
+  ],
+  "author": "Sarvesh M Rao",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^12.3.1",
+    "node-os-utils": "^1.3.2"
+  }
+}

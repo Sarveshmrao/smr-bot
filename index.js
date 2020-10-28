@@ -17,11 +17,11 @@ for (const file of commandFiles) {
 const cooldowns = new Discord.Collection();
 
 client.once('ready', () => {
+    require('http').createServer((req, res) => res.end('Bot is alive')).listen(3000)
   console.log('Ready!');
-  console.log('Logged in as ' + client.mentionsmember)
+  console.log('Logged in as ' + client.user.tag)
 client.user.setStatus('available')
-console.log(process.env.GUILD_INIT)
-console.log(process.env.GUILD_INIT_MSG)
+
 client.channels.cache.get(process.env.GUILD_INIT).send(process.env.GUILD_INIT_MSG)
     client.user.setPresence({
         activity: {

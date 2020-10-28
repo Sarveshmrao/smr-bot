@@ -67,7 +67,6 @@ let match;
           .then(async (pollMessage) => {
             await pollMessage.react('👍');
             await pollMessage.react('👎');
-            await pollMessage.react(message.guild.emojis.get('475747395754393622'));
           });
       } else {
 
@@ -91,10 +90,9 @@ if(choices[i] == "y/n") {
 var embed = new Discord.MessageEmbed()
   .setColor('#8CD7FF')
   .setTitle(`**${question}**`)
-  .setURL('https://discord.gg/n7TmN6t')
+  .setURL(process.env.URL)
   .setColor(0x4286f4)
-  .setDescription(content)
-  .setFooter('© TechCrawler Bot 2020 | By Sarvesh M Rao', 'https://cdn.discordapp.com/avatars/755372132036378625/d78bb20a07e8819d86b2da6321d7ad5d.webp');
+  .setDescription(content);
 
 message.channel.send(`:bar_chart: ${message.author} started a poll.`, embed)
   .then(async m => {

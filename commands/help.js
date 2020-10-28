@@ -12,10 +12,13 @@ module.exports = {
 
 		if (!args.length) {
 let helpEmbed = new Discord.MessageEmbed()
-.setColor(0x4286f4)
-.setTitle("List of all my commands")
-.setDescription("`" + commands.map(command => command.name).join('`, `') + "`")
-.addField('Usage', `\nYou can send \`${prefix}help [command name]\` to get info on a specific command!`);
+  .setColor(0x4286f4)
+  .setURL(process.env.URL)
+  .setTitle("List of all my commands")
+  .setDescription("`" + commands.map(command => command.name).join('`, `') + "`")
+  .setFooter('© ' + process.env.BOT_NAME + ' | ' + process.env.AUTHOR_NAME, message.client.user.avatarURL)
+
+  .addField('Usage', `\nYou can send \`${prefix}help [command name]\` to get info on a specific command!`);
 return message.author.send(helpEmbed)
 
 				.then(() => {
@@ -38,6 +41,8 @@ return message.author.send(helpEmbed)
 let commandEmbed = new Discord.MessageEmbed()
 .setColor(0x4286f4)
 .setTitle("Command Help")
+  .setFooter('© ' + process.env.BOT_NAME + ' | ' + process.env.AUTHOR_NAME, message.client.user.avatarURL)
+
 if (command.description) commandEmbed.setDescription(`${command.description}`)
 
 if (command.aliases) commandEmbed.addField('Aliases', `\`${command.aliases.join(', ')}\``, true)

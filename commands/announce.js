@@ -37,8 +37,8 @@ if (msg[3] !== undefined) {
   embed.setImage(msg[3])
 }
 if (msg[2] !== undefined) {
-	message.channel.send(embed)
 	message.channel.send(msg[2])
+  message.channel.send(embed)
 } else {
 	message.channel.send(embed)
 }

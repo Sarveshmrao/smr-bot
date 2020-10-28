@@ -28,11 +28,11 @@ let content = [];
 var embed = new Discord.MessageEmbed()
   .setColor(0x4286f4)
   .setTitle("Your Bookmark")
-  .setURL('https://discord.gg/n7TmN6t')
+  .setURL(process.env.URL)
   .setColor(0x4286f4)
   .setDescription(msg[0])
   .setTimestamp()
-  .setFooter('© TechCrawler Bot | Sarvesh M Rao', 'https://cdn.discordapp.com/avatars/755372132036378625/d78bb20a07e8819d86b2da6321d7ad5d.webp');
+  .setFooter('© ' + process.env.BOT_NAME + ' | ' + process.env.AUTHOR_NAME, message.client.user.avatarURL);
 
 if (msg[2] !== undefined) {
   embed.setImage(msg[2])

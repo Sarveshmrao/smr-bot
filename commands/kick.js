@@ -16,12 +16,14 @@ if (!message.mentions.users.size) {
 try { 
        var member = message.mentions.members.first();
         var author = message.author;
-	member
+  member
 	.kick('Kicked by <@' + author + '>.')
 	.then((member) => {
             // Successmessage
             message.channel.send(":wave: " + member.displayName + " has been successfully kicked :point_right: ");
+        
         })
+
 } catch (error) {
 			console.error(error);
 			message.channel.send(`There was an error while reloading a command \n\`${error.message}\``);

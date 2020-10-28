@@ -1,9 +1,5 @@
-const Discord = require("discord.js");
-var osu = require('node-os-utils')
-var cpu = osu.cpu
-var drive = osu.drive
-var mem = osu.mem
-var netstat = osu.netstat
+const Discord = require('discord.js');
+const os = require('os');
 
 module.exports = {
             name: 'stats',
@@ -12,49 +8,28 @@ module.exports = {
             description: 'Just a kick command If it replies nothing then you do not have enough permission to kick that person',
             guildOnly: true,
     execute(message) {
-var count = cpu.count()
-cpu.usage()
-  .then(cpuPercentage => {
-var cpupercen = cpuPercentage;
-  })
-console.log("Test1")
-mem.info()
-  .then(minfo => {
+    let servercount = message.client.guilds.cache.size;
+    let usercount = message.client.users.cache.size;
+    let channelscount = message.client.channels.cache.size;
+    let arch = os.arch();
+    let platform = os.platform();
+    let shard = message.client.ws.shards.size;
+    let NodeVersion = process.version;
+    let cores = os.cpus().length;
 
-
-  })
-var meminfo = mem.info();
-console.log("Test2")
-var meminfo = osu.mem
-
-netstat.stats()
-  .then(ninfo => {
-
-  })
-console.log("Test3")
-var cpuPercentage = cpu.usage()
-cpu.usage()
-  .then(cpuPercentage => {
-    console.log(cpuPercentage) // 10.38
-  })
-console.log("Test4")
-let totalSeconds = (message.client.uptime / 1000);
-let days = Math.floor(totalSeconds / 86400);
-totalSeconds %= 86400;
-let hours = Math.floor(totalSeconds / 3600);
-totalSeconds %= 3600;
-let minutes = Math.floor(totalSeconds / 60);
-let seconds = Math.floor(totalSeconds % 60);
-let uptime = `${days} day(s), ${hours} hour(s), ${minutes} minute(s) and ${seconds} second(s)`;
-
-  let systemEmbed = new Discord.MessageEmbed()
-  .setColor('#8CD7FF')
-  .setTitle("TechCrawler Bot System Stats")
-  .addField("Servers", message.client.guilds.cache.size, true)
-  .addField("Users", message.client.users.cache.size, true)
-  .addField("Uptime", uptime, true)
-
-  message.channel.send(systemEmbed)
-message.channel.send(cpu.usage())
-
+    let stats = new Discord.MessageEmbed()
+    .setAuthor('Sarvesh M Rao')
+    .setTitle(`Statistics of ${message.client.user.username}`)
+    .setColor('BLUE')
+    .addField("Server Count", `${servercount}`, true)
+    .addField("Users Count", `${usercount}`, true)
+    .addField("Channel's Count", `${channelscount}`, true)
+    .addField('Architecture', `${arch}`, true)
+    .addField('Platform', `${platform}`, true)
+    .addField('Node-Version', `${NodeVersion}`, true)
+    .addField('Shards', `${shard}`, true)
+    .addField('Cores', `${cores}`, true)
+    .setTimestamp()
+    .setFooter(`${message.author.tag}`, message.author.displayAvatarURL());
+    message.channel.send(stats);
 }}

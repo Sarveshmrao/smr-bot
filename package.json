@@ -1,7 +1,7 @@
 {
-  "name": "techcrawler-bot",
-  "version": "0.0.1",
-  "description": "A Discord Bot for TechCrawler Community",
+  "name": "SMR-Bot",
+  "version": "0.1.1",
+  "description": "A all purpose Discord Bot",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"

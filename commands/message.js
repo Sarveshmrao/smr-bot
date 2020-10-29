@@ -5,6 +5,7 @@ module.exports = {
 		usage: 'question without quotes \"option 1 or y/n for yes or no type question\" \"option 2 optional and so on\"',
 		guildOnly: true,
 		args: true,
+    eligible: 3,
 execute(message){
 
 const Discord = require('discord.js');

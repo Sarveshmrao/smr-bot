@@ -5,6 +5,7 @@ module.exports = {
 		guildOnly: true,
 		usage: "bookmark <\"Your Message Here\"> (\"Personal Note\")",
 		args: true,
+    eligible: 1,
 execute(message){
 
 const Discord = require('discord.js');

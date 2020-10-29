@@ -3,8 +3,22 @@ const Discord = require('discord.js');
 const prefix= process.env.PREFIX;
 const token = process.env.TOKEN;
 
+const mysqldetails = "mysql://" + process.env.DB_USER + ":" + process.env.DB_PASS + "@" + process.env.DB_HOST + ":" + process.env.DB_PORT + "/" + process.env.DB_NAME;
+const { Sequelize } = require('sequelize');
+let userRole;
+ 
+const sequelize = new Sequelize(mysqldetails);
+try {
+  sequelize.authenticate();
+  console.log('Connection has been established successfully.');
+} catch (error) {
+  console.error('Unable to connect to the database:', error);
+}
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
+
+let userlevel;
+
 
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
@@ -25,7 +39,7 @@ client.user.setStatus('available')
 client.channels.cache.get(process.env.GUILD_INIT).send(process.env.GUILD_INIT_MSG)
     client.user.setPresence({
         activity: {
-            name: process.env.NAME,
+            name: process.env.ACTIVITY_STATUS,
             url: process.env.URL
         }
     });
@@ -82,16 +96,56 @@ footer: {
 
 
 client.on('message', message => {
-	if (!message.content.startsWith(prefix) || message.author.bot) return;
+/*if (message.guild) {
+		let prefix;
 
+		if (message.content.startsWith(globalPrefix)) {
+			prefix = globalPrefix;
+		} else {
+			// check the guild-level prefix
+			const guildPrefix = prefixes.get(message.guild.id);
+			if (message.content.startsWith(guildPrefix)) prefix = guildPrefix;
+		}
+
+		// if we found a prefix, setup args; otherwise, this isn't a command
+		if (!prefix) return;
+*/
+
+	if (!message.content.startsWith(prefix) || message.author.bot) return;
+  if (message.channel.type === 'dm') {
+    userlevel = 1;
+  } else if(message.author.id == process.env.BOT_OWNER) {
+      userlevel= 5;
+  } else if(message.author.id == message.guild.ownerID) {
+
+      userlevel= 4;
+  } else if(message.member.hasPermission('ADMINISTRATOR')) {
+      userlevel= 3;
+  } else if(message.member.hasPermission('KICK_MEMBERS') && message.member.hasPermission('BAN_MEMBERS') && message.member.hasPermission('MANAGE_CHANNELS')) {
+      userlevel= 2;
+  } else {
+      userlevel= 1;
+  }
+  
 	const args = message.content.slice(prefix.length).trim().split(/ +/);
+
+
+/*
+	} else {
+		// handle DMs
+		const slice = message.content.startsWith(globalPrefix) ? globalPrefix.length : 0;
+		args = message.content.slice(prefix.length).trim().split(/ +/)
+	}
+*/
 	const commandName = args.shift().toLowerCase();
 
 	const command = client.commands.get(commandName)
 		|| client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
 	if (!command) return;
-
+if(userlevel < command.eligible) {
+  return message.reply('You can\'t run that command. You should have ' + command.eligible + ' as your role. Your current role is ' + userlevel + '\n You can always use \`' + prefix + 'myrole\` to find your role.');
+}
 	if (command.guildOnly && message.channel.type === 'dm') {
 		return message.reply('I can\'t execute that command inside DMs!');
 	}

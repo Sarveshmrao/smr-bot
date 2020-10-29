@@ -7,6 +7,7 @@ module.exports = {
             clientPermissions: ['KICK_MEMBERS'],
             userPermissions: ['KICK_MEMBERS'],
             guildOnly: true,
+            eligible: 2,
 
     execute(message) {
         if (message.author.bot) return;

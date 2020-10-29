@@ -5,6 +5,7 @@ module.exports = {
 		usage: '<question without quotes> <option 1 or y/n for yes or no with double quotes> (option 2 with quotes) and so on.',
 		guildOnly: true,
 		args: true,
+    eligible: 1,
 execute(message){
 const options = [
   '🇦',

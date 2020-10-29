@@ -7,6 +7,7 @@ module.exports = {
             group: 'moderation',
             description: 'Just a kick command If it replies nothing then you do not have enough permission to kick that person',
             guildOnly: true,
+            eligible: 1,
     execute(message) {
     let servercount = message.client.guilds.cache.size;
     let usercount = message.client.users.cache.size;
@@ -16,7 +17,15 @@ module.exports = {
     let shard = message.client.ws.shards.size;
     let NodeVersion = process.version;
     let cores = os.cpus().length;
-
+    let totalSeconds = (message.client.uptime / 1000);
+    let days = Math.floor(totalSeconds / 86400);
+    totalSeconds %= 86400;
+    let hours = Math.floor(totalSeconds / 3600);
+    totalSeconds %= 3600;
+    let minutes = Math.floor(totalSeconds / 60);
+    let seconds = Math.floor(totalSeconds % 60);
+    let uptime = `${days} day(s), ${hours} hour(s), ${minutes} minute(s) and ${seconds} second(s)`;
+  
     let stats = new Discord.MessageEmbed()
     .setAuthor('Sarvesh M Rao')
     .setTitle(`Statistics of ${message.client.user.username}`)
@@ -29,6 +38,7 @@ module.exports = {
     .addField('Node-Version', `${NodeVersion}`, true)
     .addField('Shards', `${shard}`, true)
     .addField('Cores', `${cores}`, true)
+    .addField('Uptime', `${uptime}`)
     .setTimestamp()
     .setFooter(`${message.author.tag}`, message.author.displayAvatarURL());
     message.channel.send(stats);

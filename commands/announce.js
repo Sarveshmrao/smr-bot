@@ -5,6 +5,7 @@ module.exports = {
 		usage: '<title with quotes> <description with quotes> (message with quotes) (image URL with quotes)',
 		guildOnly: true,
 		args: true,
+    eligible: 3,
 execute(message){
 
 const Discord = require('discord.js');

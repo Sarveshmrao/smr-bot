@@ -3,6 +3,7 @@ const Discord = require('discord.js');
 module.exports = {
 	name: 'ping',
 	description: 'Ping!',
+  eligible: 1,
 	execute(message) {
   const m = message.channel.send("Hold on .....")
   

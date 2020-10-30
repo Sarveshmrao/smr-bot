@@ -144,7 +144,23 @@ client.on('message', message => {
 
 	if (!command) return;
 if(userlevel < command.eligible) {
-  return message.reply('You can\'t run that command. You should have ' + command.eligible + ' as your role. Your current role is ' + userlevel + '\n You can always use \`' + prefix + 'myrole\` to find your role.');
+let usermessage;
+let commandusermessage;
+if(userlevel==5) { usermessage = "5 (Bot Owner)"} else if(userlevel==4) { usermessage = "4 (Server Owner)"} else if(userlevel==3) { usermessage = "3 (Server Admin)"} else if(userlevel==2) { usermessage = "2 (Server Mod)"} else if(userlevel==1) { usermessage = "1 (User)"}
+
+if(command.eligible==5) { commandusermessage = "5 (Bot Owner)"} else if(command.eligible==4) { commandusermessage = "4 (Server Owner)"} else if(command.eligible==3) { commandusermessage = "3 (Server Admin)"} else if(command.eligible==2) { commandusermessage = "2 (Server Mod)"} else if(command.eligible==1) { commandusermessage = "1 (User)"}
+
+var NotEligibleEmbed = new Discord.MessageEmbed()
+  .setColor("BLUE")
+  .setTitle("You don't have permission to use this command")
+  .setURL(process.env.URL)
+  .addField ("Your Role", usermessage, true)
+  .addField ("Required Role", commandusermessage, true)
+  .setDescription('You can use \`' + prefix + 'myrole\` to check your role.')
+  .setTimestamp()
+  .setFooter('© ' + process.env.BOT_NAME + ' | ' + process.env.AUTHOR_NAME, message.client.user.avatarURL);
+  return message.reply(NotEligibleEmbed)
+
 }
 	if (command.guildOnly && message.channel.type === 'dm') {
 		return message.reply('I can\'t execute that command inside DMs!');

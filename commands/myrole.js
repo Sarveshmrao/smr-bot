@@ -5,10 +5,10 @@ module.exports = {
 	execute(message) {
 
 		if(message.author.id == process.env.BOT_OWNER) {
-      message.reply("You are the Bot Owner(5)");
+      message.reply("You are the Bot Owner (5)");
     } else if(message.author.id == message.guild.ownerID) {
 
-      message.reply("You are server owner(4)");
+      message.reply("You are server owner (4)");
     } else if(message.member.hasPermission('ADMINISTRATOR')) {
       message.reply("You are Server Admin (3)");
     } else if(message.member.hasPermission('KICK_MEMBERS') && message.member.hasPermission('BAN_MEMBERS') && message.member.hasPermission('MANAGE_CHANNELS')) {

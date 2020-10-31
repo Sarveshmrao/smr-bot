@@ -17,6 +17,7 @@ function resetBot(channel) {
     // send channel a message that you're resetting bot [optional]
     channel.send('Restarting...')
     .then(msg => message.client.destroy())
+    .then(process.exit(0))
     .then(() => message.client.login(token));
 
 }

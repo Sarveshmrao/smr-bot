@@ -2,7 +2,7 @@ module.exports = {
 		name: 'announce',
 		aliases: ['a'],
 		description: 'Create a embed',
-		usage: '<title with quotes> <description with quotes> (message with quotes) (image URL with quotes)',
+		usage: '\"title with quotes\" \"description with quotes\" \"message with quotes \(optional\) \" \"image URL with quotes\(optional\)\"',
 		guildOnly: true,
 		args: true,
     eligible: 3,

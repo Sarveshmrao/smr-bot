@@ -4,6 +4,7 @@ module.exports = {
             group: 'moderation',
             memberName: 'kick',
             description: 'Just a kick command If it replies nothing then you do not have enough permission to kick that person',
+            usage: 'the user to kick as mention',
             clientPermissions: ['KICK_MEMBERS'],
             userPermissions: ['KICK_MEMBERS'],
             guildOnly: true,

@@ -6,7 +6,7 @@ const token = process.env.TOKEN;
 //const mysqldetails = "mysql://" + process.env.DB_USER + ":" + process.env.DB_PASS + "@" + process.env.DB_HOST + ":" + process.env.DB_PORT + "/" + process.env.DB_NAME;
 //const { Sequelize } = require('sequelize');
 //let userRole;
-require(`./db.js`);
+
 //const sequelize = new Sequelize(mysqldetails);
 //try {
 //  sequelize.authenticate();
@@ -71,7 +71,7 @@ client.on('guildMemberRemove', member => {
   client.channels.cache.get(process.env.GUILD_WELCOME).send({
     embed: {
       color: 3447003,
-      title: "TechCrawler Bot!",
+      title: process.env.BOT_NAME,
       url: process.env.URL,
       description: ":wave: Bye *" + mentionsmember + "* We hope you\'ll be back soon! \nCurrently our server has " + member.guild.memberCount + " awesome members!",
       thumbnail: client.user.avatarURL,

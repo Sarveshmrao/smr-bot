@@ -5,7 +5,7 @@ module.exports = {
             name: 'stats',
             aliases: ["s"],
             group: 'moderation',
-            description: 'Just a kick command If it replies nothing then you do not have enough permission to kick that person',
+            description: 'Get some awesome stats about the bot.',
             guildOnly: true,
             eligible: 1,
     execute(message) {

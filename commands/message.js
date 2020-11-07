@@ -1,8 +1,8 @@
 module.exports = {
 		name: 'message',
 		aliases: ['m'],
-		description: 'Create a poll (Use &p or &poll question without quotes \"option 1 or y/n for yes or no type question\" \"option 2 optional and so on\")',
-		usage: 'question without quotes \"option 1 or y/n for yes or no type question\" \"option 2 optional and so on\"',
+		description: 'Send message as the bot!',
+		usage: '\"Your Message in quotes\"',
 		guildOnly: true,
 		args: true,
     eligible: 3,
@@ -12,7 +12,7 @@ const Discord = require('discord.js');
 
 const args = message.content.trim().split(/ +/g);
 
-// Defining the question...
+// Defining the message...
 let question = [];
 
 for (let i = 1; i < args.length; i++) {

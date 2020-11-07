@@ -4,7 +4,7 @@ module.exports = {
             name: 'info',
             aliases: ["i"],
 	description: "Get your rank on the server.",
-  eligible: 1,
+  eligible: 5,
     execute(message) {
 let db = JSON.parse(fs.readFileSync("./database.json", "utf8"));
         let userInfo = db[message.author.id];

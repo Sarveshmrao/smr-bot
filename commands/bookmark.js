@@ -3,7 +3,7 @@ module.exports = {
 		aliases: ['b'],
 		description: 'Sends whatever you put in double quotes to your DM',
 		guildOnly: true,
-		usage: "bookmark <\"Your Message Here\"> (\"Personal Note\")",
+		usage: "\"Your Message Here in quotes\" (\"Personal Note in quotes \(optional\) \")",
 		args: true,
     eligible: 1,
 execute(message){

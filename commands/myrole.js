@@ -1,6 +1,6 @@
 module.exports = {
 	name: 'myrole',
-	description: 'Know your role',
+	description: 'Know your role on the bot!',
   eligible: 1,
 	execute(message) {
 

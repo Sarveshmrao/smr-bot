@@ -4,7 +4,7 @@ const token = process.env.TOKEN;
 module.exports = {
 		name: 'restart',
 		aliases: ['rs'],
-		description: 'Create a poll (Use &p or &poll question without quotes \"option 1 or y/n for yes or no type question\" \"option 2 optional and so on\)"',
+		description: 'Restarts the bot!',
 		guildOnly: true,
     eligible: 5,
 execute(message){

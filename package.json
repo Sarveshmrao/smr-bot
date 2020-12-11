@@ -1,6 +1,6 @@
 {
   "name": "SMR-Bot",
-  "version": "0.1.1",
+  "version": "0.2.0,
   "description": "A all purpose Discord Bot",
   "main": "index.js",
   "scripts": {

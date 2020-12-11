@@ -17,7 +17,6 @@ let helpEmbed = new Discord.MessageEmbed()
   .setURL(process.env.URL)
   .setTitle("List of all my commands")
   .setDescription("`" + commands.map(command => command.name).join('`, `') + "`")
-  .setFooter('© ' + process.env.BOT_NAME + ' | ' + process.env.AUTHOR_NAME, message.client.user.avatarURL)
 
   .addField('Usage', `\nYou can send \`${prefix}help [command name]\` to get info on a specific command!`);
 return message.author.send(helpEmbed)
@@ -42,7 +41,6 @@ return message.author.send(helpEmbed)
 let commandEmbed = new Discord.MessageEmbed()
 .setColor(0x4286f4)
 .setTitle("Command Help")
-  .setFooter('© ' + process.env.BOT_NAME + ' | ' + process.env.AUTHOR_NAME, message.client.user.avatarURL)
 
 if (command.description) commandEmbed.setDescription(`${command.description}`)
 

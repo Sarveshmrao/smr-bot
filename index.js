@@ -3,17 +3,6 @@ const Discord = require('discord.js');
 const prefix = process.env.PREFIX;
 const token = process.env.TOKEN;
 
-//const mysqldetails = "mysql://" + process.env.DB_USER + ":" + process.env.DB_PASS + "@" + process.env.DB_HOST + ":" + process.env.DB_PORT + "/" + process.env.DB_NAME;
-//const { Sequelize } = require('sequelize');
-//let userRole;
-
-//const sequelize = new Sequelize(mysqldetails);
-//try {
-//  sequelize.authenticate();
-//  console.log('Connection has been established successfully.');
-//} catch (error) {
-//  console.error('Unable to connect to the database:', error);
-//}
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
 
@@ -46,43 +35,35 @@ client.once('ready', () => {
 });
 
 client.on('guildMemberAdd', member => {
-
+if(process.env.ADD_MEMBER == "true"){
   var mentionsmember = "<@" + member + ">"
-  client.channels.cache.get(process.env.GUILD_WELCOME).send({
-    embed: {
-      color: 3447003,
-      title: process.env.BOT_NAME,
-      url: process.env.URL,
-      description: ":wave: Welcome *" + mentionsmember + "* to the" + process.env.NAME + "!. \nCurrently our server has " + member.guild.memberCount + " awesome members!",
-      thumbnail: client.user.avatarURL,
-      timestamp: new Date(),
-      footer: {
-        icon_url: client.user.avatarURL,
-        text: "© " + process.env.BOT_NAME + " | " + process.env.AUTHOR_NAME
-      }
-    }
-  })
+  const welcomeEmbed = new Discord.MessageEmbed()
+	.setColor(3447003)
+	.setTitle('Welcome ' + member.user.username)
+	.setAuthor(member.user.username, member.user.displayAvatarURL({ dynamic: true }))
+	.setDescription(process.env.ADD_MEMBER_MSG.replace("{{user}}", mentionsmember).replace("{{usercount}}", member.guild.memberCount))
+	.setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
+	.setTimestamp();
+  client.channels.cache.get(process.env.GUILD_WELCOME).send(welcomeEmbed)
 
+if (process.env.WELCOME_DM == "true"){
+  member.send(process.env.WELCOME_DM_MSG)
+}
+}
 });
 
 client.on('guildMemberRemove', member => {
+if(process.env.REMOVE_MEMBER == "true"){
   var mentionsmember = "<@" + member + ">"
 
-  client.channels.cache.get(process.env.GUILD_WELCOME).send({
-    embed: {
-      color: 3447003,
-      title: process.env.BOT_NAME,
-      url: process.env.URL,
-      description: ":wave: Bye *" + mentionsmember + "* We hope you\'ll be back soon! \nCurrently our server has " + member.guild.memberCount + " awesome members!",
-      thumbnail: client.user.avatarURL,
-      timestamp: new Date(),
-      footer: {
-        icon_url: client.user.avatarURL,
-        text: "© " + process.env.BOT_NAME + " | " + process.env.AUTHOR_NAME
-      }
-    }
-  })
-
+  const leaveEmbed = new Discord.MessageEmbed()
+      .setColor(3447003)
+      .setTitle('Bye ' + member.user.username)
+      .setAuthor(member.user.username, member.user.displayAvatarURL({ dynamic: true }))
+      .setDescription(process.env.REMOVE_MEMBER_MSG.replace("{{user}}", member.user.tag).replace("{{usercount}}",member.guild.memberCount))
+      .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
+      .setTimestamp();
+  client.channels.cache.get(process.env.GUILD_WELCOME).send(leaveEmbed)}
 
 });
 

@@ -31,8 +31,7 @@ var embed = new Discord.MessageEmbed()
   .setTitle(msg[0])
   .setURL(process.env.URL)
   .setColor(0x4286f4)
-  .setDescription(msg[1])
-  .setFooter('© ' + process.env.BOT_NAME + ' | ' + process.env.AUTHOR_NAME, message.client.user.avatarURL);
+  .setDescription(msg[1]);
 
 if (msg[3] !== undefined) {
   embed.setImage(msg[3])

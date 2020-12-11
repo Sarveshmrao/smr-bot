@@ -39,7 +39,6 @@ module.exports = {
     .addField('Shards', `${shard}`, true)
     .addField('Cores', `${cores}`, true)
     .addField('Uptime', `${uptime}`)
-    .setTimestamp()
-    .setFooter(`${message.author.tag}`, message.author.displayAvatarURL());
+    .setTimestamp();
     message.channel.send(stats);
 }}

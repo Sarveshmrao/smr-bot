@@ -20,7 +20,7 @@ for (const file of commandFiles) {
 const cooldowns = new Discord.Collection();
 
 client.once('ready', () => {
- require('http').createServer((req, res) => res.end('Bot is alive')).listen(3000)
+  require('http').createServer((req, res) => res.end('Bot is alive')).listen(3000)
   console.log('Ready!');
   console.log('Logged in as ' + client.user.tag)
   client.user.setStatus('available')
@@ -35,40 +35,41 @@ client.once('ready', () => {
 });
 
 client.on('guildMemberAdd', member => {
-if(process.env.ADD_MEMBER == "true"){
-  var mentionsmember = "<@" + member + ">"
-  const welcomeEmbed = new Discord.MessageEmbed()
-	.setColor(3447003)
-	.setTitle('Welcome ' + member.user.username)
-	.setAuthor(member.user.username, member.user.displayAvatarURL({ dynamic: true }))
-	.setDescription(process.env.ADD_MEMBER_MSG.replace("{{user}}", mentionsmember).replace("{{usercount}}", member.guild.memberCount))
-	.setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
-	.setTimestamp();
-  client.channels.cache.get(process.env.GUILD_WELCOME).send(welcomeEmbed)
+  if (process.env.ADD_MEMBER == "true") {
+    var mentionsmember = "<@" + member + ">"
+    const welcomeEmbed = new Discord.MessageEmbed()
+      .setColor(3447003)
+      .setTitle('Welcome ' + member.user.username)
+      .setAuthor(member.user.username, member.user.displayAvatarURL({ dynamic: true }))
+      .setDescription(process.env.ADD_MEMBER_MSG.replace("{{user}}", mentionsmember).replace("{{usercount}}", member.guild.memberCount))
+      .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
+      .setTimestamp();
+    client.channels.cache.get(process.env.GUILD_WELCOME).send(welcomeEmbed)
 
-if (process.env.WELCOME_DM == "true"){
-  member.send(process.env.WELCOME_DM_MSG)
-}
-}
+    if (process.env.WELCOME_DM == "true") {
+      member.send(process.env.WELCOME_DM_MSG)
+    }
+  }
 });
 
 client.on('guildMemberRemove', member => {
-if(process.env.REMOVE_MEMBER == "true"){
-  var mentionsmember = "<@" + member + ">"
+  if (process.env.REMOVE_MEMBER == "true") {
+    var mentionsmember = "<@" + member + ">"
 
-  const leaveEmbed = new Discord.MessageEmbed()
+    const leaveEmbed = new Discord.MessageEmbed()
       .setColor(3447003)
       .setTitle('Bye ' + member.user.username)
       .setAuthor(member.user.username, member.user.displayAvatarURL({ dynamic: true }))
-      .setDescription(process.env.REMOVE_MEMBER_MSG.replace("{{user}}", member.user.tag).replace("{{usercount}}",member.guild.memberCount))
+      .setDescription(process.env.REMOVE_MEMBER_MSG.replace("{{user}}", member.user.tag).replace("{{usercount}}", member.guild.memberCount))
       .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
       .setTimestamp();
-  client.channels.cache.get(process.env.GUILD_WELCOME).send(leaveEmbed)}
+    client.channels.cache.get(process.env.GUILD_WELCOME).send(leaveEmbed)
+  }
 
 });
 
 client.on('message', message => {
-  
+
   /*if (message.guild) {
       let prefix;
   
@@ -178,13 +179,36 @@ client.on('message', message => {
 
 });
 
-  //c=member.guild.channels.resolve('755495364697784392');
-  //c.setName('Member Count: ' + member.guild.memberCount);
+//c=member.guild.channels.resolve('755495364697784392');
+//c.setName('Member Count: ' + member.guild.memberCount);
 
-  //c=member.guild.channels.resolve('755495394338799698');
-  //usercount = member.guild.memberCount - 11;
-  //c.setName('User Count: ' + usercount);
+//c=member.guild.channels.resolve('755495394338799698');
+//usercount = member.guild.memberCount - 11;
+//c.setName('User Count: ' + usercount);
 
+
+//checking for invites
+client.on('message', message => {
+  if (message.content.toLowerCase().includes("https://discord.gg") || message.content.toLowerCase().includes("http://discord.gg" || message.content.toLowerCase().includes("https://discord.com/invite/")) || message.content.toLowerCase().includes("http://discord.com/invite/") || message.content.toLowerCase().includes("discord.gg") || message.content.toLowerCase().includes("discord.com/invite/")) {
+    if (!message.member.hasPermission('ADMINISTRATOR')) {
+      message.delete({ timeout: 10 });
+      message.reply("Only Admins are authorized to send invite links").then(msg => msg.delete({ timeout: 10000 }));
+      message.author.send("Only admins are authorized to send invite links!!");
+    }
+  }
+});
+
+client.on('messageUpdate', (oldMessage, newMessage) => {
+  const content = newMessage.content;
+  if (content.toLowerCase().includes("https://discord.gg") || content.toLowerCase().includes("http://discord.gg" || content.toLowerCase().includes("https://discord.com/invite/")) || content.toLowerCase().includes("http://discord.com/invite/") || content.toLowerCase().includes("discord.gg") || content.toLowerCase().includes("discord.com/invite/")) {
+    if (!newMessage.member.hasPermission('ADMINISTRATOR')) {
+      newMessage.delete({ timeout: 10 });
+      newMessage.reply("Only Admins are authorized to send invite links");
+      newMessage.author.send("Only admins are authorized to send invite links!!");
+    }
+  }
+
+});
 
 
 

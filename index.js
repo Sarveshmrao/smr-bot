@@ -47,7 +47,7 @@ if(process.env.ADD_MEMBER == "true"){
   client.channels.cache.get(process.env.GUILD_WELCOME).send(welcomeEmbed)
 
 if (process.env.WELCOME_DM == "true"){
-  member.send(process.env.WELCOME_DM_MSG)
+  member.send(process.env.WELCOME_DM_MSG.replace("{{user}}", mentionsmember).replace("{{usercount}}", member.guild.memberCount))
 }
 }
 });

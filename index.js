@@ -35,21 +35,23 @@ client.once('ready', () => {
 });
 
 client.on('guildMemberAdd', member => {
-  if (process.env.ADD_MEMBER == "true") {
-    var mentionsmember = "<@" + member + ">"
-    const welcomeEmbed = new Discord.MessageEmbed()
-      .setColor(3447003)
-      .setTitle('Welcome ' + member.user.username)
-      .setAuthor(member.user.username, member.user.displayAvatarURL({ dynamic: true }))
-      .setDescription(process.env.ADD_MEMBER_MSG.replace("{{user}}", mentionsmember).replace("{{usercount}}", member.guild.memberCount))
-      .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
-      .setTimestamp();
-    client.channels.cache.get(process.env.GUILD_WELCOME).send(welcomeEmbed)
 
-    if (process.env.WELCOME_DM == "true") {
-      member.send(process.env.WELCOME_DM_MSG)
-    }
-  }
+if(process.env.ADD_MEMBER == "true"){
+  var mentionsmember = "<@" + member + ">"
+  const welcomeEmbed = new Discord.MessageEmbed()
+	.setColor(3447003)
+	.setTitle('Welcome ' + member.user.username)
+	.setAuthor(member.user.username, member.user.displayAvatarURL({ dynamic: true }))
+	.setDescription(process.env.ADD_MEMBER_MSG.replace("{{user}}", mentionsmember).replace("{{usercount}}", member.guild.memberCount))
+	.setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
+	.setTimestamp();
+  client.channels.cache.get(process.env.GUILD_WELCOME).send(welcomeEmbed)
+
+if (process.env.WELCOME_DM == "true"){
+  member.send(process.env.WELCOME_DM_MSG.replace("{{user}}", mentionsmember).replace("{{usercount}}", member.guild.memberCount))
+}
+}
+
 });
 
 client.on('guildMemberRemove', member => {

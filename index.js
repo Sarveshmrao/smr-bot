@@ -45,7 +45,13 @@ if(process.env.ADD_MEMBER == "true"){
 	.setDescription(process.env.ADD_MEMBER_MSG.replace("{{user}}", mentionsmember).replace("{{usercount}}", member.guild.memberCount))
 	.setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
 	.setTimestamp();
-  client.channels.cache.get(process.env.GUILD_WELCOME).send(welcomeEmbed)
+  if(process.env.ADD_MEMBER_OUT_MSG){
+    client.channels.cache.get(process.env.GUILD_WELCOME).send(process.env.ADD_MEMBER_OUT_MSG.replace("{{user}}", mentionsmember).replace("{{usercount}}", member.guild.memberCount),welcomeEmbed)
+    }
+  else {
+    client.channels.cache.get(process.env.GUILD_WELCOME).send(welcomeEmbed)
+  }
+  
 
 if (process.env.WELCOME_DM == "true"){
   member.send(process.env.WELCOME_DM_MSG.replace("{{user}}", mentionsmember).replace("{{usercount}}", member.guild.memberCount))

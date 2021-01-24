@@ -1,7 +1,7 @@
 module.exports = {
 	name: 'purge',
 	description: 'Purge up to 99 messages.',
-  eligible: 3,
+	eligible: 3,
 	execute(message, args) {
 		const amount = parseInt(args[0]) + 1;
 

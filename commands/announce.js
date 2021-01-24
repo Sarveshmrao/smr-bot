@@ -10,6 +10,7 @@ module.exports = {
 
     const Discord = require('discord.js');
 
+
     const args = message.content.trim().split(/ +/g);
 
     const msg = [];
@@ -32,7 +33,6 @@ module.exports = {
       .setURL(process.env.URL)
       .setColor(0x4286f4)
       .setDescription(msg[1]);
-
     if (msg[3] !== undefined) {
       embed.setImage(msg[3])
     }
@@ -43,4 +43,5 @@ module.exports = {
     }
     message.delete();
   }
+
 }

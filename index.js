@@ -87,7 +87,8 @@ client.on('message', message => {
       if (!prefix) return;
   */
 
-  if (!message.content.startsWith(prefix) || message.author.bot) return;
+ if (message.author.bot) return;
+ 
   if (message.channel.type === 'dm') {
     userlevel = 1;
   } else if (message.author.id == process.env.BOT_OWNER) {
@@ -103,9 +104,22 @@ client.on('message', message => {
     userlevel = 1;
   }
 
-  const args = message.content.slice(prefix.length).trim().split(/ +/);
 
 
+
+//invite link blocker
+
+  if (message.content.toLowerCase().includes("discord.gg") || message.content.toLowerCase().includes("discord.com/invite")) {
+    if(process.env.INVITE_BLOCKER == "true"){
+    if (userlevel < 3) {
+      message.delete({ timeout: 10 });
+      message.reply("Only Admins are authorized to send invite links").then(msg => msg.delete({ timeout: 10000 }));
+      message.author.send("Only admins are authorized to send invite links!!");
+    };
+  }};
+
+
+  if (!message.content.startsWith(prefix)) return;
   /*
     } else {
       // handle DMs
@@ -113,6 +127,7 @@ client.on('message', message => {
       args = message.content.slice(prefix.length).trim().split(/ +/)
     }
   */
+  const args = message.content.slice(prefix.length).trim().split(/ +/);
   const commandName = args.shift().toLowerCase();
 
   const command = client.commands.get(commandName)
@@ -125,6 +140,13 @@ client.on('message', message => {
     if (userlevel == 5) { usermessage = "5 (Bot Owner)" } else if (userlevel == 4) { usermessage = "4 (Server Owner)" } else if (userlevel == 3) { usermessage = "3 (Server Admin)" } else if (userlevel == 2) { usermessage = "2 (Server Mod)" } else if (userlevel == 1) { usermessage = "1 (User)" }
 
     if (command.eligible == 5) { commandusermessage = "5 (Bot Owner)" } else if (command.eligible == 4) { commandusermessage = "4 (Server Owner)" } else if (command.eligible == 3) { commandusermessage = "3 (Server Admin)" } else if (command.eligible == 2) { commandusermessage = "2 (Server Mod)" } else if (command.eligible == 1) { commandusermessage = "1 (User)" }
+
+
+
+
+
+
+
 
     var NotEligibleEmbed = new Discord.MessageEmbed()
       .setColor("BLUE")
@@ -188,21 +210,12 @@ client.on('message', message => {
 //usercount = member.guild.memberCount - 11;
 //c.setName('User Count: ' + usercount);
 
-if(process.env.INVITE_BLOCKER == "true"){
-//checking for invites
-client.on('message', message => {
-  if (message.content.toLowerCase().includes("discord.gg") || message.content.toLowerCase().includes("discord.com/invite/")) {
-    if (userlevel <= 3) {
-      message.delete({ timeout: 10 });
-      message.reply("Only Admins are authorized to send invite links").then(msg => msg.delete({ timeout: 10000 }));
-      message.author.send("Only admins are authorized to send invite links!!");
-    }
-  }
-});
+
+
 
 client.on('messageUpdate', (oldMessage, newMessage) => {
   const content = newMessage.content;
-  if (message.content.toLowerCase().includes("discord.gg") || message.content.toLowerCase().includes("discord.com/invite/")) {
+  if (content.toLowerCase().includes("discord.gg") || content.toLowerCase().includes("discord.com/invite")) {
     if (!newMessage.member.hasPermission('ADMINISTRATOR')) {
       newMessage.delete({ timeout: 10 });
       newMessage.reply("Only Admins are authorized to send invite links");
@@ -211,5 +224,5 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
   }
 
 });
-}
+
 client.login(token);

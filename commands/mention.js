@@ -19,12 +19,12 @@ module.exports = {
 			const embed = new Discord.MessageEmbed()
 				.setTitle("Mention Roles")
 				.setColor("BLUE")
-				.setDescription(`This command can be used by **EXPERTS** to ping their **TRIBES**\n\nFormat: \`&mention <role name> <reason>\``)
+				.setDescription(`This command can be used by **EXPERTS** to ping their **TRIBES**\n\nFormat: \`${process.env.PREFIX}mention <role name> <reason>\``)
 				.addField("Role Names", "`tech`\n`code`\n`design`\n`creator`\n`science`");
 			return message.channel.send(embed);
 		}
 
-		if (args.length < 3) return message.reply("One or more of your arguments are missing!\nUse: `&mention help` to know the format!");
+		if (args.length < 3) return message.reply(`One or more of your arguments are missing!\nUse: \`${process.env.PREFIX}mention help\` to know the format!`);
 
 		if (args[1] == "tech") {
 			if (!message.member.roles.cache.find(r => r.id === mentions.experts.techexp)) return message.reply("You do not have permissions to do that!");

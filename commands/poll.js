@@ -82,6 +82,13 @@ module.exports = {
 
       // Creating and sending embed...
       let content = [];
+
+      //First checking for number of choices
+      if (choices.length > 20) {
+        message.delete();
+        return message.reply("20 options are only permitted per poll!");
+      }
+
       for (let i = 0; i < choices.length; i++) content.push(`${options[i]} ${choices[i]}`);
       content = content.join('\n');
       let i = 0;
